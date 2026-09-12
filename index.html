@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekhpal Singh | Embedded Systems & Robotics Engineer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0a0d14',
+                            card: '#111625',
+                            border: '#1e293b',
+                            cyan: '#00f0ff',
+                            neon: '#00ff88',
+                            purple: '#7000ff',
+                            text: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #05070c;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05070c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        /* Canvas Background */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Grid Pattern Background */
+        .grid-bg {
+            background-image: linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(17, 22, 37, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Glowing Text & Effects */
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+        .box-glow {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="grid-bg">
+
+    <!-- Canvas Particle Background -->
+    <div id="canvas-container">
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#05070c]/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-orbitron text-2xl font-bold text-white tracking-wider flex items-center gap-2">
+                <span class="text-cyan-400">&lt;</span>LEKHPAL<span class="text-cyan-400">/&gt;</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8 font-rajdhani text-lg font-semibold tracking-wide text-slate-300">
+                <a href="#about" class="hover:text-cyan-400 transition-colors">ABOUT</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors">SKILLS</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors">PROJECTS</a>
+                <a href="#education" class="hover:text-cyan-400 transition-colors">EDUCATION</a>
+                <a href="#achievements" class="hover:text-cyan-400 transition-colors">ACHIEVEMENTS</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">CONTACT</a>
+            </div>
+
+            <a href="mailto:lekhpal328@gmail.com" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 font-orbitron text-xs font-bold text-black rounded uppercase tracking-wider hover:opacity-90 transition-all box-glow">
+                <i class="fa-solid fa-paper-plane"></i> Contact Me
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-16 space-y-24">
+
+        <!-- HERO SECTION -->
+        <section id="about" class="min-h-[80vh] flex flex-col justify-center relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Avatar / Icon Card -->
+                <div class="lg:col-span-5 flex flex-col items-center" data-aos="fade-right">
+                    <div class="relative group">
+	
+                        <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                        
+                        <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-cyan-400/50 p-2 bg-slate-900 flex items-center justify-center">
+                            <img 
+            src="C:\Users\dosti\OneDrive\Desktop\lsrathore\myphoto.jpg" 
+            alt="Profile Photo" 
+            class="w-full h-full rounded-full object-cover"
+        />
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex items-center gap-3 px-4 py-2 rounded-full bg-slate-900/80 border border-emerald-500/40">
+                        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="font-mono text-xs text-emerald-400">Available for Internships & Projects</span>
+                    </div>
+                </div>
+
+                <!-- Intro Information -->
+                <div class="lg:col-span-7 space-y-6" data-aos="fade-left">
+                    <div>
+                        <div class="font-mono text-cyan-400 text-sm tracking-widest mb-2 uppercase">// Electronics & Computer Vision Specialist</div>
+                        <h1 class="text-4xl md:text-6xl font-extrabold font-orbitron tracking-tight text-white mb-2">
+                            Lekhpal <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 text-glow-cyan">Singh</span>
+                        </h1>
+                        <h2 class="text-xl md:text-2xl font-rajdhani font-semibold text-slate-300">
+                            B.Tech ECE '29 | Embedded Systems & PCB Design Enthusiast | GATE 2029 Aspirant
+                        </h2>
+                    </div>
+
+                    <p class="text-slate-400 text-lg leading-relaxed">
+                        Second-year ECE student focused on embedded systems, computer vision, and IoT hardware. Builds end-to-end prototypes spanning custom PCB design (KiCad), embedded firmware (ESP32, C/C++), and applied computer vision (YOLO, OpenCV, MediaPipe). Winner of the Poornima National Hackathon and placed at two other national-level hackathons. Seeking an internship applying hardware and software skills to real-world engineering problems.
+                    </p>
+
+                    <!-- Quick Contact Badges -->
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="https://linkedin.com/in/lekhal-singh-rathore-" target="_blank" class="px-5 py-3 rounded-lg glass-card flex items-center gap-3 font-semibold text-slate-200 hover:text-cyan-400 transition-all">
+                            <i class="fa-brands fa-linkedin text-xl text-cyan-400"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/lekhpalsingh" target="_blank" class="px-5 py-3 rounded-lg glass-card flex items-center gap-3 font-semibold text-slate-200 hover:text-cyan-400 transition-all">
+                            <i class="fa-brands fa-github text-xl text-cyan-400"></i> GitHub
+                        </a>
+                        <a href="https://lekhpalsingh.github.io/lekhpal/" target="_blank" class="px-5 py-3 rounded-lg glass-card flex items-center gap-3 font-semibold text-slate-200 hover:text-cyan-400 transition-all">
+                            <i class="fa-solid fa-globe text-xl text-cyan-400"></i> Website Portfolio
+                        </a>
+                        <a href="tel:9001955462" class="px-5 py-3 rounded-lg glass-card flex items-center gap-3 font-semibold text-slate-200 hover:text-cyan-400 transition-all">
+                            <i class="fa-solid fa-phone text-xl text-emerald-400"></i> Call Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECHNICAL SKILLS SECTION -->
+        <section id="skills" class="space-y-10" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-5xl font-extrabold font-orbitron text-white">Technical <span class="text-cyan-400">Stack</span></h2>
+                <div class="w-24 h-1 bg-cyan-400 mx-auto rounded-full box-glow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Box 1 -->
+                <div class="glass-card p-6 rounded-xl space-y-4">
+                    <div class="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center text-cyan-400 text-2xl">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-rajdhani text-white">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-800 text-cyan-300 font-mono text-xs rounded border border-slate-700">C</span>
+                        <span class="px-3 py-1 bg-slate-800 text-cyan-300 font-mono text-xs rounded border border-slate-700">C++</span>
+                        <span class="px-3 py-1 bg-slate-800 text-cyan-300 font-mono text-xs rounded border border-slate-700">Python</span>
+                        <span class="px-3 py-1 bg-slate-800 text-cyan-300 font-mono text-xs rounded border border-slate-700">HTML</span>
+                    </div>
+                </div>
+
+                <!-- Box 2 -->
+                <div class="glass-card p-6 rounded-xl space-y-4">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-2xl">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-rajdhani text-white">Embedded & Hardware</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-800 text-emerald-300 font-mono text-xs rounded border border-slate-700">ESP32</span>
+                        <span class="px-3 py-1 bg-slate-800 text-emerald-300 font-mono text-xs rounded border border-slate-700">IoT Systems</span>
+                        <span class="px-3 py-1 bg-slate-800 text-emerald-300 font-mono text-xs rounded border border-slate-700">KiCad</span>
+                        <span class="px-3 py-1 bg-slate-800 text-emerald-300 font-mono text-xs rounded border border-slate-700">DipTrace</span>
+                        <span class="px-3 py-1 bg-slate-800 text-emerald-300 font-mono text-xs rounded border border-slate-700">Altium</span>
+                    </div>
+                </div>
+
+                <!-- Box 3 -->
+                <div class="glass-card p-6 rounded-xl space-y-4">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 border border-purple-400/30 flex items-center justify-center text-purple-400 text-2xl">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-rajdhani text-white">Computer Vision & ML</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-800 text-purple-300 font-mono text-xs rounded border border-slate-700">OpenCV</span>
+                        <span class="px-3 py-1 bg-slate-800 text-purple-300 font-mono text-xs rounded border border-slate-700">YOLO</span>
+                        <span class="px-3 py-1 bg-slate-800 text-purple-300 font-mono text-xs rounded border border-slate-700">MediaPipe</span>
+                        <span class="px-3 py-1 bg-slate-800 text-purple-300 font-mono text-xs rounded border border-slate-700">Scikit-Learn</span>
+                        <span class="px-3 py-1 bg-slate-800 text-purple-300 font-mono text-xs rounded border border-slate-700">Machine Learning</span>
+                    </div>
+                </div>
+
+                <!-- Box 4 -->
+                <div class="glass-card p-6 rounded-xl space-y-4">
+                    <div class="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-400 text-2xl">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-rajdhani text-white">Tools & Platforms</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-800 text-amber-300 font-mono text-xs rounded border border-slate-700">Firebase</span>
+                        <span class="px-3 py-1 bg-slate-800 text-amber-300 font-mono text-xs rounded border border-slate-700">Git / GitHub</span>
+                        <span class="px-3 py-1 bg-slate-800 text-amber-300 font-mono text-xs rounded border border-slate-700">Arduino IDE</span>
+                        <span class="px-3 py-1 bg-slate-800 text-amber-300 font-mono text-xs rounded border border-slate-700">LTspice</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CORE SKILLS -->
+            <div class="mt-8 pt-8 border-t border-slate-800">
+                <h3 class="text-lg font-mono text-cyan-400 mb-4 uppercase">// Core Competencies & Electronics Skillsets</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-solid fa-layer-group text-cyan-400"></i><span class="text-sm font-medium">Embedded Systems Design</span></div>
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-solid fa-terminal text-cyan-400"></i><span class="text-sm font-medium">Embedded C Programming</span></div>
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-brands fa-linux text-cyan-400"></i><span class="text-sm font-medium">Embedded Linux</span></div>
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-solid fa-clock text-cyan-400"></i><span class="text-sm font-medium">Real-Time Operating Systems</span></div>
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-solid fa-bolt text-cyan-400"></i><span class="text-sm font-medium">Digital Circuit Design</span></div>
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-solid fa-draw-polygon text-cyan-400"></i><span class="text-sm font-medium">Schematic Capture</span></div>
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-solid fa-wave-square text-cyan-400"></i><span class="text-sm font-medium">Simulation & Modeling</span></div>
+                    <div class="p-3 glass-card rounded-lg flex items-center gap-3"><i class="fa-solid fa-robot text-cyan-400"></i><span class="text-sm font-medium">Autonomous Systems</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="space-y-10" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-5xl font-extrabold font-orbitron text-white">Featured <span class="text-cyan-400">Projects</span></h2>
+                <div class="w-24 h-1 bg-cyan-400 mx-auto rounded-full box-glow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col justify-between group p-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="px-3 py-1 rounded bg-cyan-500/20 text-cyan-400 font-mono text-xs font-semibold">FEB 2026</span>
+                            <i class="fa-solid fa-tree text-2xl text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-rajdhani text-white group-hover:text-cyan-400 transition-colors">
+                            Smart Wildlife Detection & Water Harvesting System
+                        </h3>
+                        <ul class="space-y-2 text-slate-400 text-sm">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Real-time wildlife detection using IoT sensors & AI monitoring.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Automatic water harvesting for wildlife safety & reducing waste.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Smart environmental resource monitoring.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col justify-between group p-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="px-3 py-1 rounded bg-cyan-500/20 text-cyan-400 font-mono text-xs font-semibold">SEPT 2025</span>
+                            <i class="fa-solid fa-robot text-2xl text-purple-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-rajdhani text-white group-hover:text-cyan-400 transition-colors">
+                            Smart Biom Sponge Bot (BioBot Cleaning Robot)
+                        </h3>
+                        <ul class="space-y-2 text-slate-400 text-sm">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Autonomous robot for waste collection on water surfaces.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Uses sensors & embedded systems for navigation and waste detection.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Dramatically reduces water pollution & manual cleaning.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card rounded-xl overflow-hidden flex flex-col justify-between group p-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="px-3 py-1 rounded bg-cyan-500/20 text-cyan-400 font-mono text-xs font-semibold">SEPT 2026</span>
+                            <i class="fa-solid fa-industry text-2xl text-amber-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-rajdhani text-white group-hover:text-cyan-400 transition-colors">
+                            Smart Conveyor Belt Monitoring System
+                        </h3>
+                        <ul class="space-y-2 text-slate-400 text-sm">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>AI + IoT monitoring for belt damage & overheating detection.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Early fault warnings prevent costly industrial breakdowns.</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-cyan-400 mt-1 text-xs"></i><span>Reduces downtime & safety risks in mining conveyor systems.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION SECTION -->
+        <section id="education" class="space-y-10" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-5xl font-extrabold font-orbitron text-white">Education & <span class="text-cyan-400">Academic</span></h2>
+                <div class="w-24 h-1 bg-cyan-400 mx-auto rounded-full box-glow"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto glass-card p-8 rounded-xl relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="space-y-2">
+                        <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 font-mono text-xs font-bold rounded">2025 - 2029</span>
+                        <h3 class="text-2xl font-bold font-rajdhani text-white">Bachelor of Technology: Electronics & Communications Engineering</h3>
+                        <p class="text-slate-400 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-cyan-400"></i>
+                            Geetanjali Institute of Technical Studies - Udaipur, India
+                        </p>
+                    </div>
+                    <div>
+                        <span class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-mono text-xs rounded-full font-bold shadow-lg">
+                            GATE 2029 Aspirant
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS SECTION -->
+        <section id="achievements" class="space-y-10" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-5xl font-extrabold font-orbitron text-white">Achievements & <span class="text-cyan-400">Activities</span></h2>
+                <div class="w-24 h-1 bg-cyan-400 mx-auto rounded-full box-glow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div class="glass-card p-6 rounded-xl flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-trophy"></i></div>
+                    <div>
+                        <h3 class="text-xl font-bold font-rajdhani text-white">5th Rank - Techno Tarang Hackathon 2026</h3>
+                        <p class="text-slate-400 text-sm mt-1">Secured 5th position among 190 teams at Poornima College, Jaipur. Winner of Poornima National Hackathon.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div>
+                        <h3 class="text-xl font-bold font-rajdhani text-white">1-Month Industrial Training - Robotwala</h3>
+                        <p class="text-slate-400 text-sm mt-1">Hands-on training in Raspberry Pi, Python, Drone Technology, STM32, and AI/ML applications.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-earth-americas"></i></div>
+                    <div>
+                        <h3 class="text-xl font-bold font-rajdhani text-white">International Conference on New Tech</h3>
+                        <p class="text-slate-400 text-sm mt-1">Attended at SPSU, Udaipur. Gained exposure to emerging global tech innovations & engineering trends.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl shrink-0"><i class="fa-solid fa-medal"></i></div>
+                    <div>
+                        <h3 class="text-xl font-bold font-rajdhani text-white">State-Level Hockey Player</h3>
+                        <p class="text-slate-400 text-sm mt-1">Represented Jodhpur at State Level in Hockey (Chopasni, Jodhpur), demonstrating athletic leadership.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="space-y-10" data-aos="fade-up">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-5xl font-extrabold font-orbitron text-white">Get In <span class="text-cyan-400">Touch</span></h2>
+                <div class="w-24 h-1 bg-cyan-400 mx-auto rounded-full box-glow"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto glass-card p-8 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold font-rajdhani text-white">Let's build something extraordinary together.</h3>
+                    <p class="text-slate-400 text-sm">Open to internship opportunities, hardware engineering collaborations, and hackathon projects.</p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 text-slate-300">
+                            <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400"><i class="fa-solid fa-location-dot"></i></div>
+                            <div><div class="text-xs text-slate-500 font-mono">LOCATION</div><div class="font-semibold text-sm">Udaipur, IN 799105</div></div>
+                        </div>
+                        <div class="flex items-center gap-4 text-slate-300">
+                            <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400"><i class="fa-solid fa-phone"></i></div>
+                            <div><div class="text-xs text-slate-500 font-mono">PHONE</div><div class="font-semibold text-sm">9001955462</div></div>
+                        </div>
+                        <div class="flex items-center gap-4 text-slate-300">
+                            <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400"><i class="fa-solid fa-envelope"></i></div>
+                            <div><div class="text-xs text-slate-500 font-mono">EMAIL</div><div class="font-semibold text-sm">lekhpal328@gmail.com</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="space-y-4" onsubmit="event.preventDefault(); alert('Message feature ready!');">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">YOUR NAME</label>
+                        <input type="text" required placeholder="John Doe" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">YOUR EMAIL</label>
+                        <input type="email" required placeholder="john@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">MESSAGE</label>
+                        <textarea rows="4" required placeholder="Write your message..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-orbitron font-bold rounded-lg hover:opacity-90 transition-all box-glow">
+                        SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-8 bg-[#05070c] relative z-10 text-center">
+        <p class="text-slate-500 font-mono text-xs">
+            © 2026 Lekhpal Singh. Built with <i class="fa-solid fa-heart text-red-500"></i> & Futuristic Tech.
+        </p>
+    </footer>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Dynamic Particle Canvas Animation
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particleCount; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 240, 255, ${p.alpha})`;
+                ctx.fill();
+
+                for (let j = i + 1; j < particleCount; j++) {
+                    let p2 = particles[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 150)})`;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
